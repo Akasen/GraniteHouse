@@ -22,5 +22,25 @@ namespace GraniteHouse.Areas.Admin.Controllers
         {
             return View(_db.ProductTypes.ToList());
         }
+
+        //GET Create Action Method
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        //POST Create Action Method
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ProductTypesController productTypes)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Add(productTypes);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(productTypes);
+        }
     }
 }
