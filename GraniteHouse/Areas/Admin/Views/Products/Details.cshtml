@@ -1,35 +1,52 @@
 ﻿@model GraniteHouse.Models.ViewModels.ProductsViewModel
 @using GraniteHouse.Extensions
 
-<br />
-<h2 class="text-info">Product Details</h2>
+@{
+    ViewData["Title"] = "Edit";
+}
 
+
+<br />
+<h2 class="text-info">Edit Product</h2>
+
+<form method="post" enctype="multipart/form-data">
 
     <div class="p-4 border rounded row">
+        <input hidden asp-for="Products.Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="col-8">
             <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="Products.Name"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Products.Name" readonly class="form-control" />
+                    <input asp-for="Products.Name" class="form-control" />
                 </div>
+                <span asp-validation-for="Products.Name" class="text-danger"></span>
             </div>
             <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="Products.Price"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Products.Price" readonly class="form-control" />
+                    <input asp-for="Products.Price" class="form-control" />
+                </div>
+                <span asp-validation-for="Products.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Products.Image"></label>
+                </div>
+                <div class="col-8">
+                    <input type="file" name="files" class="form-control" />
                 </div>
             </div>
-
             <div class="form-group row">
                 <div class="col-4">
                     <label asp-for="ProductTypes"></label>
                 </div>
                 <div class="col-8">
-                    <select asp-for="Products.ProductTypes.Name" readonly class="form-control"></select>
+                    <select asp-for="@Model.Products.ProductTypeId" asp-items="Model.ProductTypes.ToSelectListItem(Model.Products.ProductTypeId)" class="form-control"></select>
                 </div>
             </div>
             <div class="form-group row">
@@ -37,7 +54,7 @@
                     <label asp-for="SpecialTags"></label>
                 </div>
                 <div class="col-8">
-                    <select asp-for="Products.SpecialTags.Name" readonly class="form-control"></select>
+                    <select asp-for="@Model.Products.SpecialTagsId" asp-items="Model.SpecialTags.ToSelectListItem(Model.Products.SpecialTagsId)" class="form-control"></select>
                 </div>
 
             </div>
@@ -47,8 +64,9 @@
                     <label asp-for="Products.ShadeColor"></label>
                 </div>
                 <div class="col-8">
-                    <input asp-for="Products.ShadeColor" readonly class="form-control" />
+                    <input asp-for="Products.ShadeColor" class="form-control" />
                 </div>
+                <span asp-validation-for="Products.ShadeColor" class="text-danger"></span>
             </div>
 
             <div class="form-group row">
@@ -56,7 +74,7 @@
                     <label asp-for="Products.Available"></label>
                 </div>
                 <div class="col-8">
-                    <input type="checkbox" disabled class="form-control" asp-for="Products.Available" />
+                    <input type="checkbox" asp-for="Products.Available" />
                 </div>
             </div>
         </div>
@@ -70,12 +88,13 @@
 
         <br />
         <div class="form-group">
-            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Products.Id">Edit</a>
+            <input type="submit" class="btn btn-primary" value="Update" />
             <a asp-action="Index" class="btn btn-success">Back to List</a>
         </div>
 
 
     </div>
+</form>
 
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
