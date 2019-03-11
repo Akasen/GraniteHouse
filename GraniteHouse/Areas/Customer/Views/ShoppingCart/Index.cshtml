@@ -25,68 +25,68 @@
                                 <label asp-for="@Model.Products.FirstOrDefault().ShadeColor"></label>
                             </th>
                             <th style="text-align:center;">
-                                <label asp-for="@Model.Products.FirstOrDefault().ProductTypes"></label>
+                                <label asp-for="@Model.Products.FirstOrDefault().ProductTypes.Name"></label>
                             </th>
                             <th style="text-align:center;"></th>
                         </tr>
                         @foreach (var item in Model.Products)
                         {
-
                             <tr style="padding:50px;">
                                 <td>
                                     <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
-                                        <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px #bbb9b9;" />
+                                        <img src="@item.Image" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
                                     </a>
                                 </td>
-                                <td sytle="text-align:center">
+                                <td style="text-align:center">
                                     @Html.DisplayFor(c => item.Name)
                                 </td>
-                                <td sytle="text-align:center">
+                                <td style="text-align:center">
                                     @Html.DisplayFor(c => item.Price)
                                 </td>
-                                <td sytle="text-align:center">
+                                <td style="text-align:center">
                                     @Html.DisplayFor(c => item.ShadeColor)
                                 </td>
-                                <td sytle="text-align:center">
+                                <td style="text-align:center">
                                     @Html.DisplayFor(c => item.ProductTypes.Name)
                                 </td>
-                                <td sytle="text-align:center">
+                                <td style="text-align:center">
                                     <button type="submit" class="btn btn-danger" asp-action="remove" asp-route-id="@item.Id">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </td>
                             </tr>
+
                         }
                     </table>
                 </div>
                 <div class="col-4" style="padding-left:30px;">
                     <div class="row">
-                        <div class="col-12" style="padding-bottom:15px">
+                        <div class="col-12">
                             <label>Name : </label>
                         </div>
                         <div class="col-12" style="padding-bottom:15px">
                             <input asp-for="@Model.Appointments.CustomerName" class="form-control" />
                         </div>
-                        <div class="col-12" style="padding-bottom:15px">
+                        <div class="col-12">
                             <label>Phone Number : </label>
                         </div>
                         <div class="col-12" style="padding-bottom:15px">
                             <input asp-for="@Model.Appointments.CustomerPhoneNumber" class="form-control" />
                         </div>
-                        <div class="col-12" style="padding-bottom:15px">
-                            <label>Email : </label>
+                        <div class="col-12">
+                            <label>Email  : </label>
                         </div>
                         <div class="col-12" style="padding-bottom:15px">
                             <input asp-for="@Model.Appointments.CustomerEmail" class="form-control" />
                         </div>
-                        <div class="col-12" style="padding-bottom:15px">
+                        <div class="col-12">
                             <label>Appointment Date : </label>
                         </div>
                         <div class="col-12" style="padding-bottom:15px">
                             <input asp-for="@Model.Appointments.AppointmentDate" value="" type="text" id="datepicker" class="form-control" />
                         </div>
-                        <div class="col-12" style="padding-bottom:15px">
-                            <label>Time : </label>
+                        <div class="col-12">
+                            <label>Appointment Time : </label>
                         </div>
                         <div class="col-12" style="padding-bottom:15px">
                             <input asp-for="@Model.Appointments.AppointmentTime" value="" type="text" class="timepicker form-control" />
@@ -97,30 +97,32 @@
                     </div>
                 </div>
             </div>
-
         </div>
+
     }
     else
     {
-        <div>No itmes added to the shopping cart</div>
+        <div>No items added to the shopping cart...</div>
+
     }
 </form>
 
-@section Scripts {
+@section Scripts{
     <script>
+        $('.timepicker').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 30,
+            minTime: '10',
+            maxTime: '3:00pm',
+            defaultTime: '10',
+            startTime: '10:00',
+            dynamic: true,
+            dropdown: true,
+            scrollbar: true
+        });
         $(function () {
-            $('.timepicker').timepicker({
-                timeFormat: 'h:mm p',
-                interval: 30,
-                minTime: '10',
-                maxTime: '3:00pm',
-                startTime: '10:00',
-                dynamic: true,
-                dropdown: true,
-                scrollbar: true
-            });
             $("#datepicker").datepicker({
-                minDate: +1, maxDate:"+3M"
+                minDate: +1, maxDate: "+3M"
             });
         });
     </script>
